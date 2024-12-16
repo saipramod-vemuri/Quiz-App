@@ -1,5 +1,5 @@
 # Quiz-App
-is key: design fun quizzes with different question types, like multiple choice, true/false, open-ended, and even pictures. Improve front-end development skills while exploring user interaction and data management. Design quizzes that challenge and educate, expanding your own knowledge base.
+This project lets you become the ultimate quizmaster by building your own engaging quiz app! Variety is key: design fun quizzes with different question types, like multiple choice, true/false, open-ended, and even pictures. Improve front-end development skills while exploring user interaction and data management. Design quizzes that challenge and educate, expanding your own knowledge base.
 
 How it works:
 
