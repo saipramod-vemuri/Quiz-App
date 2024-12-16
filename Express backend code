@@ -1,0 +1,55 @@
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+
+const app = express();
+const PORT = 5000;
+
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
+
+// Sample quiz data
+const quizData = [
+  {
+    id: 1,
+    question: "What is the capital of France?",
+    choices: ["Berlin", "Madrid", "Paris", "Lisbon"],
+    correct: 2,
+  },
+  {
+    id: 2,
+    question: "Who is the founder of Microsoft?",
+    choices: ["Steve Jobs", "Bill Gates", "Mark Zuckerberg", "Elon Musk"],
+    correct: 1,
+  },
+  {
+    id: 3,
+    question: "Which year was JavaScript created?",
+    choices: ["1993", "1995", "1997", "1999"],
+    correct: 1,
+  },
+];
+
+// Endpoint to get quiz questions
+app.get("/api/quiz", (req, res) => {
+  res.json({ success: true, data: quizData });
+});
+
+// Endpoint to submit quiz results
+app.post("/api/quiz/submit", (req, res) => {
+  const { userId, score, totalQuestions } = req.body;
+
+  if (!userId || score === undefined || !totalQuestions) {
+    return res.status(400).json({ success: false, message: "Invalid data" });
+  }
+
+  // Here, you can save the score to a database
+  console.log(`User ${userId} scored ${score}/${totalQuestions}`);
+  res.json({ success: true, message: "Score submitted successfully!" });
+});
+
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
