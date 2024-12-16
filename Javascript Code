@@ -1,0 +1,68 @@
+const quizData = [
+  {
+    question: "What is the capital of France?",
+    choices: ["Berlin", "Madrid", "Paris", "Lisbon"],
+    correct: 2,
+  },
+  {
+    question: "Who is the founder of Microsoft?",
+    choices: ["Steve Jobs", "Bill Gates", "Mark Zuckerberg", "Elon Musk"],
+    correct: 1,
+  },
+  {
+    question: "Which year was JavaScript created?",
+    choices: ["1993", "1995", "1997", "1999"],
+    correct: 1,
+  },
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+
+const questionElement = document.getElementById("question");
+const choicesElement = document.getElementById("choices");
+const nextButton = document.getElementById("next-btn");
+const resultElement = document.getElementById("result");
+const scoreElement = document.getElementById("score");
+
+function loadQuestion() {
+  const currentQuestion = quizData[currentQuestionIndex];
+  questionElement.innerText = currentQuestion.question;
+  choicesElement.innerHTML = "";
+
+  currentQuestion.choices.forEach((choice, index) => {
+    const button = document.createElement("button");
+    button.innerText = choice;
+    button.classList.add("choice");
+    button.addEventListener("click", () => checkAnswer(index));
+    choicesElement.appendChild(button);
+  });
+}
+
+function checkAnswer(selectedIndex) {
+  const currentQuestion = quizData[currentQuestionIndex];
+  if (selectedIndex === currentQuestion.correct) {
+    score++;
+  }
+  currentQuestionIndex++;
+  if (currentQuestionIndex < quizData.length) {
+    loadQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  document.getElementById("quiz").classList.add("hidden");
+  resultElement.classList.remove("hidden");
+  scoreElement.innerText = `${score} / ${quizData.length}`;
+}
+
+nextButton.addEventListener("click", () => {
+  if (currentQuestionIndex < quizData.length) {
+    loadQuestion();
+  }
+});
+
+// Initialize the quiz
+loadQuestion();
